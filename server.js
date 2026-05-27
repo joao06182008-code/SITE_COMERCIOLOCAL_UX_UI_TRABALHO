@@ -12,7 +12,11 @@ const SERPAPI_KEY = '5985ec6ead17b708817e133c1a1da01cbbd96fcf3d77e10abc23023151d
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname)));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'painel.html'));
+});
 
 app.get('/buscar', async (req, res) => {
   const query = req.query.q || 'alimentos atacado';
