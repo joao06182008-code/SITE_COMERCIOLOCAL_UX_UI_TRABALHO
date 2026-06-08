@@ -190,6 +190,13 @@
     .product-price { font-size: 13px; font-weight: 600; color: var(--text); }
     .product-badge { font-size: 11px; color: var(--text-muted); }
     .stars { font-size: 11px; color: #f59e0b; margin-bottom: 4px; }
+    .product-delivery {
+      font-size: 11px; color: var(--green-dark);
+      display: flex; align-items: center; gap: 3px;
+      margin-bottom: 4px; font-weight: 500;
+    }
+    .product-delivery i { font-size: 12px; }
+
     .ccoin-earn {
       font-size: 10px; color: var(--gold);
       font-weight: 600; margin-bottom: 6px;
@@ -519,6 +526,7 @@
             <span class="product-price">${p.price > 0 ? 'R$ ' + p.price.toFixed(2) : 'Ver preço'}</span>
             <span class="product-badge">Online</span>
           </div>
+          ${p.entrega ? `<div class="product-delivery"><i class="ti ti-truck-delivery"></i>${p.entrega}</div>` : '<div class="product-delivery"><i class="ti ti-truck-delivery"></i>3-5 dias úteis</div>'}
           ${ccoinsEarn > 0 ? `<div class="ccoin-earn">🪙 +${ccoinsEarn} C-Coins nesta compra</div>` : ''}
           <a class="btn-order" href="${p.link}" target="_blank" rel="noopener" onclick="ganharCCoins(${ccoinsEarn}, '${p.name.replace(/'/g,'')}')">Ver na loja ↗</a>
         </div>
