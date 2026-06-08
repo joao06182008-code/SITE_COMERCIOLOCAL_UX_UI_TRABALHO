@@ -11,6 +11,8 @@
     :root {
       --green: #1D9E75;
       --green-dark: #0F6E56;
+      --gold: #F5A623;
+      --gold-bg: #FFF8EC;
       --bg: #f5f5f3;
       --bg-card: #ffffff;
       --bg-sidebar: #f0efed;
@@ -43,30 +45,38 @@
 
     /* SIDEBAR */
     .sidebar {
-      width: 200px;
-      min-width: 200px;
+      width: 200px; min-width: 200px;
       background: var(--bg-sidebar);
       border-right: 0.5px solid var(--border);
-      display: flex;
-      flex-direction: column;
+      display: flex; flex-direction: column;
     }
     .sidebar-header {
       padding: 16px;
       border-bottom: 0.5px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex; align-items: center; gap: 10px;
     }
     .avatar {
-      width: 36px; height: 36px;
-      border-radius: 50%;
+      width: 36px; height: 36px; border-radius: 50%;
       background: #d4f0e6;
       display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 600; color: var(--green-dark);
-      flex-shrink: 0;
+      font-size: 13px; font-weight: 600; color: var(--green-dark); flex-shrink: 0;
     }
     .sidebar-header-text strong { font-size: 13px; color: var(--text); display: block; }
     .sidebar-header-text span { font-size: 11px; color: var(--text-muted); }
+
+    /* C-COINS WIDGET */
+    .ccoin-widget {
+      margin: 10px 12px;
+      background: var(--gold-bg);
+      border: 0.5px solid #f5d48a;
+      border-radius: var(--radius);
+      padding: 8px 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ccoin-icon { font-size: 18px; }
+    .ccoin-info { flex: 1; }
+    .ccoin-label { font-size: 10px; color: var(--text-muted); }
+    .ccoin-value { font-size: 14px; font-weight: 700; color: var(--gold); }
 
     .nav { flex: 1; padding: 8px 0; }
     .nav-item {
@@ -77,10 +87,8 @@
     }
     .nav-item:hover { background: rgba(0,0,0,0.04); color: var(--text); }
     .nav-item.active {
-      background: var(--bg-card);
-      color: var(--text);
-      font-weight: 500;
-      border-right: 2px solid var(--green);
+      background: var(--bg-card); color: var(--text);
+      font-weight: 500; border-right: 2px solid var(--green);
     }
     .nav-item i { font-size: 17px; width: 20px; text-align: center; }
 
@@ -95,6 +103,11 @@
     /* MAIN */
     .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
+    /* PÁGINAS */
+    .page { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+    .page.active { display: flex; }
+
+    /* TOPBAR */
     .topbar {
       padding: 12px 16px;
       border-bottom: 0.5px solid var(--border);
@@ -112,7 +125,6 @@
       outline: none; transition: border 0.15s;
     }
     .search-wrap input:focus { border-color: var(--green); }
-
     .filters { display: flex; gap: 8px; }
     .filter-btn {
       padding: 5px 12px;
@@ -137,14 +149,30 @@
       border: 0.5px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden; transition: border-color 0.15s;
+      position: relative;
     }
     .product-card:hover { border-color: #b0b0a8; }
+
+    /* CASHBACK BADGE */
+    .cashback-badge {
+      position: absolute; top: 6px; left: 6px;
+      background: var(--gold);
+      color: #fff;
+      font-size: 10px; font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 20px;
+      display: flex; align-items: center; gap: 3px;
+      z-index: 2;
+      box-shadow: 0 1px 4px rgba(245,166,35,0.4);
+    }
+    .cashback-badge i { font-size: 10px; }
 
     .product-img {
       width: 100%; aspect-ratio: 1;
       background: var(--bg-sidebar);
       display: flex; align-items: center; justify-content: center;
       border-bottom: 0.5px solid var(--border);
+      position: relative;
     }
     .product-img i { font-size: 32px; color: var(--text-muted); }
     .product-img img { width: 100%; height: 100%; object-fit: cover; }
@@ -155,14 +183,18 @@
       margin-bottom: 2px; line-height: 1.3;
       display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
     }
-    .product-seller { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
+    .product-seller { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
     .product-meta {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;
     }
     .product-price { font-size: 13px; font-weight: 600; color: var(--text); }
     .product-badge { font-size: 11px; color: var(--text-muted); }
-
-    .stars { font-size: 11px; color: #f59e0b; margin-bottom: 6px; }
+    .stars { font-size: 11px; color: #f59e0b; margin-bottom: 4px; }
+    .ccoin-earn {
+      font-size: 10px; color: var(--gold);
+      font-weight: 600; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 3px;
+    }
 
     .btn-order {
       width: 100%; padding: 6px;
@@ -174,11 +206,76 @@
     .btn-order:hover { background: var(--green-dark); }
     .btn-order:active { transform: scale(0.98); }
 
-    /* ESTADO VAZIO / LOADING */
+    /* STATUS */
     .status-msg {
       color: var(--text-muted); font-size: 13px;
       grid-column: 1 / -1; padding: 24px 0; text-align: center;
     }
+
+    /* PÁGINA CONTATO */
+    .page-inner { flex: 1; overflow-y: auto; padding: 24px; }
+    .page-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .page-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .contact-card {
+      background: var(--bg-sidebar);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex; align-items: center; gap: 12px;
+      cursor: pointer; transition: border-color 0.15s;
+    }
+    .contact-card:hover { border-color: var(--green); }
+    .contact-card i { font-size: 22px; color: var(--green); }
+    .contact-card-text strong { font-size: 13px; color: var(--text); display: block; }
+    .contact-card-text span { font-size: 11px; color: var(--text-muted); }
+
+    .form-group { margin-bottom: 12px; }
+    .form-group label { font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 8px 12px;
+      border: 0.5px solid var(--border); border-radius: var(--radius);
+      font-size: 13px; background: var(--bg-card); color: var(--text);
+      outline: none; transition: border 0.15s; font-family: inherit;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--green); }
+    .form-group textarea { resize: none; height: 80px; }
+    .btn-submit {
+      padding: 8px 20px;
+      background: var(--green); color: #fff;
+      border: none; border-radius: var(--radius);
+      font-size: 13px; cursor: pointer; transition: background 0.15s;
+    }
+    .btn-submit:hover { background: var(--green-dark); }
+
+    /* PÁGINA PEDIDOS */
+    .pedidos-list { display: flex; flex-direction: column; gap: 10px; }
+    .pedido-card {
+      background: var(--bg-sidebar);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .pedido-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: #d4f0e6;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .pedido-icon i { font-size: 17px; color: var(--green); }
+    .pedido-info { flex: 1; }
+    .pedido-name { font-size: 13px; font-weight: 500; color: var(--text); }
+    .pedido-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .pedido-status {
+      font-size: 11px; font-weight: 600; padding: 3px 8px;
+      border-radius: 20px;
+    }
+    .status-confirmado { background: #d4f0e6; color: var(--green-dark); }
+    .status-andamento { background: #fff3cd; color: #856404; }
+    .status-entregue { background: #e2e3e5; color: #495057; }
+    .pedido-ccoin { font-size: 11px; color: var(--gold); font-weight: 600; margin-top: 2px; }
 
     /* TOAST */
     .toast {
@@ -189,6 +286,7 @@
       transition: all 0.3s; pointer-events: none; z-index: 999;
     }
     .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.gold { background: var(--gold); }
   </style>
 </head>
 <body>
@@ -202,12 +300,22 @@
         <span>Comerciante</span>
       </div>
     </div>
+
+    <!-- C-COINS SALDO -->
+    <div class="ccoin-widget">
+      <span class="ccoin-icon">🪙</span>
+      <div class="ccoin-info">
+        <div class="ccoin-label">Seu saldo</div>
+        <div class="ccoin-value" id="saldoCCoins">0 C-Coins</div>
+      </div>
+    </div>
+
     <nav class="nav">
-      <div class="nav-item active"><i class="ti ti-home"></i> Início</div>
-      <div class="nav-item"><i class="ti ti-headset"></i> Contato</div>
-      <div class="nav-item"><i class="ti ti-clipboard-list"></i> Acompanhar pedidos</div>
-      <div class="nav-item"><i class="ti ti-truck-delivery"></i> Acompanhar entregas</div>
-      <div class="nav-item"><i class="ti ti-shopping-bag"></i> Meus pedidos</div>
+      <div class="nav-item active" onclick="navTo('inicio', this)"><i class="ti ti-home"></i> Início</div>
+      <div class="nav-item" onclick="navTo('contato', this)"><i class="ti ti-headset"></i> Contato</div>
+      <div class="nav-item" onclick="navTo('pedidos', this)"><i class="ti ti-clipboard-list"></i> Acompanhar pedidos</div>
+      <div class="nav-item" onclick="navTo('entregas', this)"><i class="ti ti-truck-delivery"></i> Acompanhar entregas</div>
+      <div class="nav-item" onclick="navTo('meus-pedidos', this)"><i class="ti ti-shopping-bag"></i> Meus pedidos</div>
     </nav>
     <div class="sidebar-footer">
       <span>Fale conosco</span>
@@ -216,34 +324,137 @@
   </aside>
 
   <main class="main">
-    <div class="topbar">
-      <div class="search-wrap">
-        <i class="ti ti-search"></i>
-        <input type="text" id="searchInput" placeholder="Buscar produtos (ex: farinha de trigo 5kg)..." oninput="onSearch()" />
+
+    <!-- PÁGINA INÍCIO -->
+    <div class="page active" id="page-inicio">
+      <div class="topbar">
+        <div class="search-wrap">
+          <i class="ti ti-search"></i>
+          <input type="text" id="searchInput" placeholder="Buscar produtos (ex: farinha de trigo 5kg)..." oninput="onSearch()" />
+        </div>
+        <div class="filters">
+          <button class="filter-btn active" onclick="setFilter('barato', this)">Mais Barato</button>
+          <button class="filter-btn" onclick="setFilter('avaliado', this)">Melhor Avaliado</button>
+          <button class="filter-btn" onclick="setFilter('cashback', this)">+ C-Coins</button>
+        </div>
       </div>
-      <div class="filters">
-        <button class="filter-btn active" onclick="setFilter('barato', this)">Mais Barato</button>
-        <button class="filter-btn" onclick="setFilter('avaliado', this)">Melhor Avaliado</button>
+      <div class="products-area">
+        <div class="products-grid" id="grid">
+          <p class="status-msg">Digite um produto acima para buscar os melhores preços.</p>
+        </div>
       </div>
     </div>
-    <div class="products-area">
-      <div class="products-grid" id="grid">
-        <p class="status-msg">Digite um produto acima para buscar os melhores preços.</p>
+
+    <!-- PÁGINA CONTATO -->
+    <div class="page" id="page-contato">
+      <div class="page-inner">
+        <div class="page-title">Contato & Suporte</div>
+        <div class="page-sub">Escolha como prefere falar com a gente</div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <i class="ti ti-brand-whatsapp"></i>
+            <div class="contact-card-text">
+              <strong>WhatsApp</strong>
+              <span>Resposta em minutos</span>
+            </div>
+          </div>
+          <div class="contact-card">
+            <i class="ti ti-mail"></i>
+            <div class="contact-card-text">
+              <strong>E-mail</strong>
+              <span>suporte@comerciolocal.com</span>
+            </div>
+          </div>
+          <div class="contact-card">
+            <i class="ti ti-phone"></i>
+            <div class="contact-card-text">
+              <strong>Telefone</strong>
+              <span>(11) 0000-0000</span>
+            </div>
+          </div>
+          <div class="contact-card">
+            <i class="ti ti-message-circle"></i>
+            <div class="contact-card-text">
+              <strong>Chat ao vivo</strong>
+              <span>Seg–Sex, 8h–18h</span>
+            </div>
+          </div>
+        </div>
+        <div class="page-title" style="margin-bottom:12px">Enviar mensagem</div>
+        <div class="form-group">
+          <label>Assunto</label>
+          <select>
+            <option>Dúvida sobre pedido</option>
+            <option>Problema com entrega</option>
+            <option>C-Coins</option>
+            <option>Outros</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensagem</label>
+          <textarea placeholder="Descreva sua dúvida ou problema..."></textarea>
+        </div>
+        <button class="btn-submit" onclick="showToast('Mensagem enviada! Retornaremos em breve.')">Enviar mensagem</button>
       </div>
     </div>
+
+    <!-- PÁGINA ACOMPANHAR PEDIDOS -->
+    <div class="page" id="page-pedidos">
+      <div class="page-inner">
+        <div class="page-title">Acompanhar Pedidos</div>
+        <div class="page-sub">Aqui estão seus pedidos recentes</div>
+        <div class="pedidos-list" id="pedidosList"></div>
+      </div>
+    </div>
+
+    <!-- PÁGINA ENTREGAS (em breve) -->
+    <div class="page" id="page-entregas">
+      <div class="page-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px">
+        <i class="ti ti-truck-delivery" style="font-size:48px;color:var(--border)"></i>
+        <div class="page-title">Acompanhar Entregas</div>
+        <div class="page-sub" style="text-align:center">Esta funcionalidade estará disponível em breve.</div>
+      </div>
+    </div>
+
+    <!-- PÁGINA MEUS PEDIDOS (em breve) -->
+    <div class="page" id="page-meus-pedidos">
+      <div class="page-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px">
+        <i class="ti ti-shopping-bag" style="font-size:48px;color:var(--border)"></i>
+        <div class="page-title">Meus Pedidos</div>
+        <div class="page-sub" style="text-align:center">Esta funcionalidade estará disponível em breve.</div>
+      </div>
+    </div>
+
   </main>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-  // ⚙️ Aponte para o seu servidor local
   const API_BASE = '';
 
   let allProducts = [];
   let currentFilter = 'barato';
   let debounceTimer = null;
+  let ccoins = 0;
 
+  // Pedidos simulados
+  const pedidosSimulados = [
+    { nome: 'Farinha de Trigo 5kg', loja: 'Fornecedor Central', valor: 45.00, status: 'confirmado', data: '06/06/2026', ccoins: 23 },
+    { nome: 'Arroz Branco 5kg', loja: 'Moinho Norte', valor: 32.00, status: 'andamento', data: '05/06/2026', ccoins: 16 },
+    { nome: 'Feijão Carioca 2kg', loja: 'Distribuidora Sul', valor: 18.00, status: 'entregue', data: '01/06/2026', ccoins: 9 },
+  ];
+
+  // Navegação
+  function navTo(page, el) {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    if (page === 'pedidos') renderPedidos();
+  }
+
+  // Filtros
   function setFilter(f, btn) {
     currentFilter = f;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -251,70 +462,98 @@
     renderGrid();
   }
 
+  // Busca com debounce
   function onSearch() {
     const query = document.getElementById('searchInput').value.trim();
     clearTimeout(debounceTimer);
-    if (!query) {
-      allProducts = [];
-      renderGrid();
-      return;
-    }
+    if (!query) { allProducts = []; renderGrid(); return; }
     debounceTimer = setTimeout(() => fetchProducts(query), 600);
   }
 
   async function fetchProducts(query) {
     const grid = document.getElementById('grid');
-    grid.innerHTML = '<p class="status-msg"><i class="ti ti-loader-2"></i> Buscando melhores preços...</p>';
-
+    grid.innerHTML = '<p class="status-msg">Buscando melhores preços...</p>';
     try {
       const res = await fetch(`${API_BASE}/buscar?q=${encodeURIComponent(query)}`);
-      allProducts = await res.json();
+      const data = await res.json();
+      // Adiciona % de cashback variável a cada produto
+      const pcts = [3,5,7,8,10,12,15];
+      allProducts = data.map(p => ({
+        ...p,
+        cashbackPct: pcts[Math.floor(Math.random() * pcts.length)]
+      }));
       renderGrid();
     } catch (err) {
-      grid.innerHTML = '<p class="status-msg">Erro ao conectar com o servidor. Verifique se o <code>server.js</code> está rodando.</p>';
+      grid.innerHTML = '<p class="status-msg">Erro ao conectar com o servidor.</p>';
     }
   }
 
   function getSorted() {
     const arr = [...allProducts];
     if (currentFilter === 'barato') arr.sort((a, b) => a.price - b.price);
-    else arr.sort((a, b) => b.rating - a.rating);
+    else if (currentFilter === 'avaliado') arr.sort((a, b) => b.rating - a.rating);
+    else arr.sort((a, b) => b.cashbackPct - a.cashbackPct);
     return arr;
   }
 
   function renderGrid() {
     const g = document.getElementById('grid');
     const products = getSorted();
-
     if (!products.length) {
       g.innerHTML = '<p class="status-msg">Nenhum produto encontrado.</p>';
       return;
     }
-
-    g.innerHTML = products.map(p => `
+    g.innerHTML = products.map(p => {
+      const ccoinsEarn = p.price > 0 ? Math.round(p.price * (p.cashbackPct / 100)) : 0;
+      return `
       <div class="product-card">
+        <div class="cashback-badge"><i class="ti ti-coin"></i>${p.cashbackPct}% C-Coins</div>
         <div class="product-img">
-          ${p.thumbnail
-            ? `<img src="${p.thumbnail}" alt="${p.name}" loading="lazy" />`
-            : `<i class="ti ti-shopping-bag"></i>`}
+          ${p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.name}" loading="lazy" />` : `<i class="ti ti-shopping-bag"></i>`}
         </div>
         <div class="product-info">
           <div class="product-name">${p.name}</div>
           <div class="product-seller">${p.seller}</div>
-          ${p.rating ? `<div class="stars">${'★'.repeat(Math.round(p.rating))}${'☆'.repeat(5 - Math.round(p.rating))} <span style="color:var(--text-muted)">${p.rating.toFixed(1)}</span></div>` : ''}
+          ${p.rating ? `<div class="stars">${'★'.repeat(Math.round(p.rating))}${'☆'.repeat(5-Math.round(p.rating))} <span style="color:var(--text-muted)">${p.rating.toFixed(1)}</span></div>` : ''}
           <div class="product-meta">
             <span class="product-price">${p.price > 0 ? 'R$ ' + p.price.toFixed(2) : 'Ver preço'}</span>
             <span class="product-badge">Online</span>
           </div>
-          <a class="btn-order" href="${p.link}" target="_blank" rel="noopener">Ver na loja ↗</a>
+          ${ccoinsEarn > 0 ? `<div class="ccoin-earn">🪙 +${ccoinsEarn} C-Coins nesta compra</div>` : ''}
+          <a class="btn-order" href="${p.link}" target="_blank" rel="noopener" onclick="ganharCCoins(${ccoinsEarn}, '${p.name.replace(/'/g,'')}')">Ver na loja ↗</a>
         </div>
+      </div>`;
+    }).join('');
+  }
+
+  function ganharCCoins(qtd, nome) {
+    if (qtd <= 0) return;
+    ccoins += qtd;
+    document.getElementById('saldoCCoins').textContent = ccoins + ' C-Coins';
+    showToast(`🪙 +${qtd} C-Coins ao visitar ${nome}!`, true);
+  }
+
+  function renderPedidos() {
+    const list = document.getElementById('pedidosList');
+    const labelMap = { confirmado: 'Confirmado', andamento: 'Em andamento', entregue: 'Entregue' };
+    const classMap = { confirmado: 'status-confirmado', andamento: 'status-andamento', entregue: 'status-entregue' };
+    list.innerHTML = pedidosSimulados.map(p => `
+      <div class="pedido-card">
+        <div class="pedido-icon"><i class="ti ti-package"></i></div>
+        <div class="pedido-info">
+          <div class="pedido-name">${p.nome}</div>
+          <div class="pedido-meta">${p.loja} · ${p.data} · R$ ${p.valor.toFixed(2)}</div>
+          <div class="pedido-ccoin">🪙 ${p.ccoins} C-Coins ganhos</div>
+        </div>
+        <span class="pedido-status ${classMap[p.status]}">${labelMap[p.status]}</span>
       </div>
     `).join('');
   }
 
-  function showToast(msg) {
+  function showToast(msg, gold = false) {
     const t = document.getElementById('toast');
     t.textContent = msg;
+    t.className = 'toast' + (gold ? ' gold' : '');
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2500);
   }
