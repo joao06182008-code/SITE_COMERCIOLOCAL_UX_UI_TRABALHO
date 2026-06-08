@@ -36,14 +36,31 @@ app.get('/buscar', async (req, res) => {
       return res.json([]);
     }
 
-    const produtos = data.shopping_results.map(item => ({
-      name: item.title,
-      seller: item.source || 'Loja Online',
-      price: item.extracted_price || 0,
-      rating: item.rating || 0,
-      link: item.link || '#',
-      thumbnail: item.thumbnail || null,
-    }));
+    const prazosSimulados = ['1-2 dias úteis', '2-3 dias úteis', '3-5 dias úteis', '5-7 dias úteis'];
+
+    const produtos = data.shopping_results.map(item => {
+      // SerpApi pode retornar delivery como string ex: "Chega amanhã" ou "3-5 dias"
+      let entrega = null;
+      if (item.delivery) {
+        // Tenta extrair só a parte do prazo (remove "Frete grátis · " etc)
+        const match = item.delivery.match(/(\d[\d\-–]* dias?[^\,]*|amanhã|hoje|em \d+ dias?)/i);
+        entrega = match ? match[0] : item.delivery.split('·').pop().trim();
+      }
+      // Se não veio do SerpApi, usa estimativa simulada
+      if (!entrega || entrega.length < 3) {
+        entrega = prazosSimulados[Math.floor(Math.random() * prazosSimulados.length)];
+      }
+
+      return {
+        name: item.title,
+        seller: item.source || 'Loja Online',
+        price: item.extracted_price || 0,
+        rating: item.rating || 0,
+        link: item.link || '#',
+        thumbnail: item.thumbnail || null,
+        entrega,
+      };
+    });
 
     res.json(produtos);
   } catch (error) {
